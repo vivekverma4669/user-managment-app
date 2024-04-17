@@ -16,7 +16,7 @@ const Dashboard = () => {
   const [editableUser, setEditableUser] = useState(null);
   const [loading,setLoading] = useState(false);
   const [popUp,setpopUp]= useState(false);
-  const arr=[];
+  const [exAdd,setExAdd]= useState([]);
 
 
 
@@ -52,9 +52,9 @@ const Dashboard = () => {
         email: '',
         department: ''
       }); 
-  
+      
       setpopUp(false);
-      toast.success("Data Added Successfully!")
+      toast.success("Data Added Successfully 🎉!")
     }
     catch (error) {
       console.log(error);
@@ -95,10 +95,12 @@ const Dashboard = () => {
       const updatedUsers = users.map(user =>
         user.id === updatedUser.id ? { ...user, ...updatedUser } : user
       );
+
       setUsers(updatedUsers);
       setEditableUser(null);
       (() => toast("User data update  Succuesfully ✅ ")
       )();
+
     } catch (error) {
       console.error('Error updating user:', error);
     }
@@ -110,9 +112,8 @@ const Dashboard = () => {
     try {
       await axios.delete(`https://jsonplaceholder.typicode.com/users/${id}`);
       setUsers(users.filter(user => user.id !== id));
-      (() => toast("User data delete Succuesfully ✅ ")
-      )();
-      
+      (() => toast("User data delete   Succuesfully ✅ ")
+    )();
     }
     catch (error) {
       console.error('Error deleting user:', error);
@@ -152,6 +153,7 @@ const Dashboard = () => {
         />
       </div>
 
+      {!loading ?
 
       <table>
         <thead>
@@ -165,9 +167,8 @@ const Dashboard = () => {
         </thead>
         <tbody>
 
-        {!loading ?
-
-          users.map(user => (
+       
+          {users.map(user => (
             <tr key={user.id}>
               <td>{user.id}</td>
               <td>{editableUser && editableUser.id === user.id ? <input type="text" value={editableUser.name} onChange={e => setEditableUser({ ...editableUser, name: e.target.value })} /> : user.name}</td>
@@ -181,13 +182,18 @@ const Dashboard = () => {
               </td>
             </tr>
           ))
+          }
 
-    : <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExYTlkNnpodHZmcWpiOXc3NnVwbXh0cnFpNnN2OGVmdG5peDE5YmgxMyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/uIJBFZoOaifHf52MER/200.webp" width="60%"/>
-        }
+       
         </tbody>
 
 
       </table>
+
+      : 
+      <img src="https://cdnl.iconscout.com/lottie/premium/thumb/spinner-loading-5600921-4672284.gif" width="26%"/>
+        }
+
 
 
 
