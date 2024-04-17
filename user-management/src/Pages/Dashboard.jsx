@@ -14,7 +14,8 @@ const Dashboard = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [tasksPerPage, setTasksPerPage] = useState(5);
   const [editableUser, setEditableUser] = useState(null);
-  const [popUp,setpopUp]= useState(true);
+  const [loading,setLoading] = useState(false);
+  const [popUp,setpopUp]= useState(false);
   const arr=[];
 
 
@@ -62,8 +63,12 @@ const Dashboard = () => {
     }
   };  
 
+
+
    // read data 
+
   const fetchUsers = async () => {
+    setLoading(true);
     try {
       const response = await axios.get(`https://jsonplaceholder.typicode.com/users?_page=${currentPage}&_limit=${tasksPerPage}`);
       setUsers(response.data);
@@ -71,6 +76,7 @@ const Dashboard = () => {
     } catch (error) {
       console.error('Error fetching users:', error);
     }
+    setLoading(false);
   };
   useEffect(() => {
    
@@ -90,8 +96,9 @@ const Dashboard = () => {
         user.id === updatedUser.id ? { ...user, ...updatedUser } : user
       );
       setUsers(updatedUsers);
-      alert('Update done');
       setEditableUser(null);
+      (() => toast("User data update  Succuesfully ✅ ")
+      )();
     } catch (error) {
       console.error('Error updating user:', error);
     }
@@ -103,6 +110,9 @@ const Dashboard = () => {
     try {
       await axios.delete(`https://jsonplaceholder.typicode.com/users/${id}`);
       setUsers(users.filter(user => user.id !== id));
+      (() => toast("User data delete Succuesfully ✅ ")
+      )();
+      
     }
     catch (error) {
       console.error('Error deleting user:', error);
@@ -113,8 +123,7 @@ const Dashboard = () => {
   return (
     <div>
       <h2>User List</h2>
-
-        
+      <ToastContainer/>
         
         <div style={{width :'150px' , float :"right" , marginRight :"50px"}}>
           <button  onClick={() => setpopUp(true)} style={{ padding :'7px' ,borderRadius :"3px", backgroundColor :'brown' , color:"whitesmoke" , fontSize :'17px' }}>
@@ -155,7 +164,10 @@ const Dashboard = () => {
           </tr>
         </thead>
         <tbody>
-          {users.map(user => (
+
+        {!loading ?
+
+          users.map(user => (
             <tr key={user.id}>
               <td>{user.id}</td>
               <td>{editableUser && editableUser.id === user.id ? <input type="text" value={editableUser.name} onChange={e => setEditableUser({ ...editableUser, name: e.target.value })} /> : user.name}</td>
@@ -163,14 +175,20 @@ const Dashboard = () => {
               <td>{editableUser && editableUser.id === user.id ? <input type="text" value={editableUser.company.name} onChange={e => setEditableUser({ ...editableUser, company: { name: e.target.value } })} /> : user.company.name}</td>
               <td>
                 {editableUser && editableUser.id === user.id ?
-                  <button onClick={() => handleUpdate(editableUser)}>Update</button> :
-                  <button onClick={() => handleEdit(user)}>Edit</button>}
-                <button onClick={() => handleDelete(user.id)}>Delete</button>
+                  <button onClick={() => handleUpdate(editableUser)}> Update</button> :
+                  <button onClick={() => handleEdit(user)} style={{marginLeft :'4px', color :'green'}}> Edit   <img src='https://cdn3.iconfinder.com/data/icons/feather-5/24/edit-512.png' style={{ width: "20px" }} /></button>}
+                <button onClick={() => handleDelete(user.id)} style={{marginLeft :'4px', color :'crimson'}}>Delete <img src='https://cdn-icons-png.flaticon.com/512/3687/3687412.png' style={{ width: "20px" }} /></button>
               </td>
             </tr>
-          ))}
+          ))
+
+    : <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExYTlkNnpodHZmcWpiOXc3NnVwbXh0cnFpNnN2OGVmdG5peDE5YmgxMyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/uIJBFZoOaifHf52MER/200.webp" width="60%"/>
+        }
         </tbody>
+
+
       </table>
+
 
 
 
@@ -206,12 +224,9 @@ const Dashboard = () => {
                 <button style={{ backgroundColor: "rgb(76,182,57)", border: "none", color: "white", fontWeight: "bold", cursor: "pointer" , padding :'5px', width :'75px' , borderRadius:'3px'}} type="submit">Add</button>
 
                 <div>
-                <button style={{cursor: "pointer" }} onClick={() => setpopUp(false)}>Cancel</button>
+                <button style={{cursor: "pointer" , color: 'crimson' }} onClick={() => setpopUp(false)}>Cancel</button>
               </div>
               </form>
-
-             
-
             </div>
 
           </React.Fragment>
