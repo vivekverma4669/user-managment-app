@@ -65,7 +65,8 @@
   nav .menu span {
     height: 0.4rem;
     width: 100%;
-    background-color: #fff;
+    /* margin: px; */
+    background-color: #140303;
     border-radius: 0.2rem;
   }
   

@@ -1,0 +1,59 @@
+table{
+    background-color: teal;
+    width: 95%;
+    margin: auto;
+    margin-top: 70px;
+    margin-bottom: 50px;
+    border: 2px solid black;
+    padding: 5px;
+    color: aliceblue;
+     border-collapse: collapse;
+    border-radius: 5px;
+}
+table th{
+
+    color: black;
+    font-size: 21px;
+    background-color: rgb(180, 52, 52);
+}
+table td{
+    font-size: larger;
+    border: 2px solid black;
+    border-radius: 5px;
+}
+
+
+
+/* pop up */
+.show{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); 
+    z-index: 99; 
+  }
+  
+  
+   .show form{
+      position: fixed;
+       top: 45%;
+       left: 50%;
+       transform: translate(-50%, -50%);
+       display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      width: 350px;
+      height: 450px;
+      background: rgb(255, 250, 250);
+      border-radius: 8px;
+   }
+   .show form input{
+    height: 20px;
+    width: 80%;
+    border-radius: 5px;
+    padding: 4px;
+   }
+  

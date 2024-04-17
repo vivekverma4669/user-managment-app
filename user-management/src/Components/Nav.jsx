@@ -24,11 +24,11 @@ import { Link, NavLink } from "react-router-dom";
 <img src="https://www.svgrepo.com/show/459911/dashboard.svg" width="30px" /> Dashboard </NavLink>
         </li>
         <li >
-          <NavLink to="/create" style={{display :"flex" , justifyContent:'center' , alignContent :"center" , gap :'2px'}}> <img src="https://uxwing.com/wp-content/themes/uxwing/download/business-professional-services/pie-chart-icon.png" width="30px"/>  Chart </NavLink>
+          <NavLink to="/chart" style={{display :"flex" , justifyContent:'center' , alignContent :"center" , gap :'2px'}}> <img src="https://uxwing.com/wp-content/themes/uxwing/download/business-professional-services/pie-chart-icon.png" width="30px"/>  Chart </NavLink>
         </li>
-        <li>
+        {/* <li>
           <NavLink to="/about" style={{display :"flex" , justifyContent:'center' , alignContent :"center" , gap :'2px'}} > <img src="https://visualpharm.com/assets/917/Settings-595b40b75ba036ed117d71cb.svg" width="30px" />About</NavLink>
-        </li>
+        </li> */}
          
         </ul> 
 
