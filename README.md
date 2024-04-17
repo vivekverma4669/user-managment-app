@@ -43,7 +43,7 @@
     <p>To install and run this project on your local system, follow these steps:</p>
     <ol>
         <li>Clone the repository to your local machine using Git: <code>git clone https://github.com/vivekverma4669/user-managment-app.git</code></li>
-        <li>Navigate to the project directory: <code>cd user-managment</code></li>
+        <li>Navigate to the project directory: <code>cd user-management</code></li>
         <li>Install the required dependencies using npm: <code>npm install</code></li>
         <li>Start the development server: <code>npm run start</code></li>
         <li>Open your web browser and go to <code>http://localhost:3000</code> to view the application.</li>
