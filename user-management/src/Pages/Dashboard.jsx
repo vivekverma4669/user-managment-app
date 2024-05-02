@@ -6,14 +6,15 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const Dashboard = () => {
-
   const [users, setUsers] = useState([]);
+
   const [totalUsers, setTotalUsers] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [tasksPerPage, setTasksPerPage] = useState(5);
-  const [editableUser, setEditableUser] = useState(null);
+  const [editableUser, setEditableUser] = useState(null)
   const [loading, setLoading] = useState(false);
   const [popUp, setPopUp] = useState(false);
+
   const [addData, setAddData] = useState({
     id: '',
     firstName: '',
@@ -22,21 +23,23 @@ const Dashboard = () => {
     department: ''
   });
 
+
   const fetchUsers = async () => {
     setLoading(true);
     try {
       const response = await axios.get(`https://jsonplaceholder.typicode.com/users?_page=${currentPage}&_limit=${tasksPerPage}`);
       setUsers(response.data);
       setTotalUsers(response.headers['x-total-count']);
-    } catch (error) {
+    }
+    catch (error) {
       console.error('Error fetching users:', error);
     }
     setLoading(false);
   };
-
   useEffect(() => {
     fetchUsers();
   }, [currentPage, tasksPerPage]);
+
 
   const handleEdit = (user) => {
     setEditableUser(user);
@@ -168,16 +171,19 @@ const Dashboard = () => {
           <tbody>
             {users.map(user => (
               <tr key={user.id}>
+
                 <td>{user.id}</td>
                 <td>{editableUser && editableUser.id === user.id ? <input type="text" value={editableUser.name} onChange={e => setEditableUser({ ...editableUser, name: e.target.value })} /> : user.name}</td>
                 <td>{editableUser && editableUser.id === user.id ? <input type="text" value={editableUser.email} onChange={e => setEditableUser({ ...editableUser, email: e.target.value })} /> : user.email}</td>
                 <td>{editableUser && editableUser.id === user.id ? <input type="text" value={editableUser.company.name} onChange={e => setEditableUser({ ...editableUser, company: { name: e.target.value } })} /> : user.company.name}</td>
+
                 <td>
                   {editableUser && editableUser.id === user.id ?
                     <button onClick={() => handleUpdate(editableUser)}>Update</button> :
                     <button onClick={() => handleEdit(user)} style={{ marginLeft: '4px', color: 'green' }}>Edit <img src='https://cdn3.iconfinder.com/data/icons/feather-5/24/edit-512.png' style={{ width: "20px" }} alt="Edit Icon" /></button>}
-                  <button onClick={() => handleDelete(user.id)} style={{ marginLeft: '4px', color: 'crimson' }}>Delete <img src='https://cdn-icons-png.flaticon.com/512/3687/3687412.png' style={{ width: "20px" }} alt="Delete Icon" /></button>
+                    <button onClick={() => handleDelete(user.id)} style={{ marginLeft: '4px', color: 'crimson' }}>Delete <img src='https://cdn-icons-png.flaticon.com/512/3687/3687412.png' style={{ width: "20px" }} alt="Delete Icon" /></button>
                 </td>
+
               </tr>
             ))}
           </tbody>
@@ -189,6 +195,7 @@ const Dashboard = () => {
         <div className="show">
           <form onSubmit={handleAdd}>
             <h2>Add User</h2>
+            
             <input type="number" name='id' placeholder='Enter Id' required
               value={addData.id}
               onChange={(e) => setAddData({ ...addData, id: e.target.value })} />
